@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>متجر الخضر والفواكه</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>مرحبا بكم في متجر الخضر والفواكه</h1>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="ابحث عن منتج..." />
+      <button id="clearSearch">✖</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="products-container">
+
+      <div class="product">
+        <img src="tomatoes.jpg" alt="طماطم" />
+        <h3>طماطم</h3>
+        <p>السعر: 5 دراهم / كغ</p>
+        <button class="button" onclick="addToCart('طماطم', 5)">أضف إلى السلة</button>
+      </div>
+
+      <div class="product">
+        <img src="apple.jpg" alt="تفاح" />
+        <h3>تفاح</h3>
+        <p>السعر: 12 درهم / كغ</p>
+        <button class="button" onclick="addToCart('تفاح', 12)">أضف إلى السلة</button>
+      </div>
+
+      <div class="product">
+        <img src="potato.jpg" alt="بطاطس" />
+        <h3>بطاطس</h3>
+        <p>السعر: 4 دراهم / كغ</p>
+        <button class="button" onclick="addToCart('بطاطس', 4)">أضف إلى السلة</button>
+      </div>
+
+      <div class="product">
+        <img src="carrot.jpg" alt="جزر" />
+        <h3>جزر</h3>
+        <p>السعر: 3 دراهم / كغ</p>
+        <button class="button" onclick="addToCart('جزر', 3)">أضف إلى السلة</button>
+      </div>
+
+      <div class="product">
+        <img src="mint.jpg" alt="نعناع" />
+        <h3>نعناع</h3>
+        <p>السعر: 1 درهم / ربطة</p>
+        <button class="button" onclick="addToCart('نعناع', 1)">أضف إلى السلة</button>
+      </div>
+
+    </div>
+
+    <section class="cart-section">
+      <h2>🛒 سلة المشتريات</h2>
+      <div id="cart-items"></div>
+      <h3 id="total-price">المجموع: 0 درهم</h3>
+      <button onclick="clearCart()" class="button clear-cart-btn">تفريغ السلة</button>
+    </section>
+  </main>
+
+  <section class="message" id="message"></section>
+
+  <footer>
+    <nav>
+      <a href="index.html">الرئيسية</a> |
+      <a href="about.html">من نحن</a> |
+      <a href="contact.html">اتصل بنا</a>
+    </nav>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
