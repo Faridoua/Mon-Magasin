@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>إتمام الشراء - متجر الخضر والفواكه</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+      direction: rtl;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      box-sizing: border-box;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button[type="submit"] {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 16px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #219150;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+    }
+
+    /* تصميم رسالة التأكيد */
+    .confirmation-container {
+      background: #e0f7fa;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 150, 136, 0.3);
+      text-align: center;
+      font-family: 'Cairo', sans-serif;
+      color: #004d40;
+      display: none;
+    }
+
+    .confirmation-container h2 {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+
+    .confirmation-container p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .btn-confirmation {
+      display: inline-block;
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 12px 28px;
+      margin: 10px 8px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      min-width: 150px;
+    }
+
+    .btn-confirmation:hover {
+      background: linear-gradient(to right, #2ecc71, #27ae60);
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>إتمام الشراء</h1>
+
+  <form id="orderForm">
+    <label for="fullName">الاسم الكامل <span style="color:red;">*</span></label>
+    <input type="text" id="fullName" name="fullName" required />
+
+    <label for="phone">رقم الهاتف <span style="color:red;">*</span></label>
+    <input type="tel" id="phone" name="phone" pattern="[0-9+ ]+" required />
+
+    <label for="address">العنوان <span style="color:red;">*</span></label>
+    <input type="text" id="address" name="address" required />
+
+    <label for="email">البريد الإلكتروني (اختياري)</label>
+    <input type="email" id="email" name="email" />
+
+    <label for="paymentMethod">طريقة الدفع <span style="color:red;">*</span></label>
+    <select id="paymentMethod" name="paymentMethod" required>
+      <option value="">اختر طريقة الدفع</option>
+      <option value="الدفع عند الاستلام">الدفع عند الاستلام</option>
+      <option value="بطاقة الائتمان">بطاقة الائتمان</option>
+    </select>
+
+    <button type="submit">إرسال الطلب</button>
+  </form>
+
+  <!-- رسالة التأكيد -->
+  <div class="confirmation-container" id="confirmationMessage">
+    <h2>تم إرسال الطلب بنجاح!</h2>
+    <p>شكراً لتسوقك معنا. سيتم معالجة طلبك قريباً.</p>
+    <button class="btn-confirmation" onclick="window.location.href='index.html'">العودة إلى الصفحة الرئيسية</button>
+    <button class="btn-confirmation" onclick="window.location.href='orders.html'">عرض طلباتي</button>
+  </div>
+
+  <!-- Firebase Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCwnbxso8erHL2v4TrcjN2l0XTY7jFK3xE",
+      authDomain: "mon-magasin-4c845.firebaseapp.com",
+      projectId: "mon-magasin-4c845",
+      storageBucket: "mon-magasin-4c845.firebasestorage.app",
+      messagingSenderId: "63756402426",
+      appId: "1:63756402426:web:ce4058d1f9e316781cd343",
+      measurementId: "G-333NLC44H3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('orderForm');
+    const confirmationMessage = document.getElementById('confirmationMessage');
+
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart')) || {};
+    }
+
+    function clearCart() {
+      localStorage.removeItem('cart');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const fullName = form.fullName.value.trim();
+      const phone = form.phone.value.trim();
+      const address = form.address.value.trim();
+      const email = form.email.value.trim();
+      const paymentMethod = form.paymentMethod.value;
+
+      if (!fullName || !phone || !address || !paymentMethod) {
+        alert("يرجى تعبئة الحقول المطلوبة");
+        return;
+      }
+
+      const cart = getCart();
+
+      if (Object.keys(cart).length === 0) {
+        alert("السلة فارغة، يرجى إضافة منتجات أولاً.");
+        return;
+      }
+
+      const orderData = {
+        fullName,
+        phone,
+        address,
+        email: email || null,
+        paymentMethod,
+        cart,
+        orderDate: new Date().toISOString()
+      };
+
+      try {
+        await addDoc(collection(db, "orders"), orderData);
+        clearCart();
+        form.reset();
+        form.style.display = 'none';
+        confirmationMessage.style.display = 'block';
+      } catch (error) {
+        console.error("خطأ في إرسال الطلب:", error);
+        alert("حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.");
+      }
+    });
+  </script>
+</body>
+</html>
