@@ -21,8 +21,9 @@
       <div class="product">
         <img src="tomatoes.jpg" alt="طماطم" />
         <h3>طماطم</h3>
-        <p>السعر: 5 دراهم / كغ</p>
-        <button class="button" onclick="addToCart('طماطم', 5)">أضف إلى السلة</button>
+
+        <p>السعر: 6 دراهم / كغ</p>
+        <button class="button" onclick="addToCart('طماطم', 6)">أضف إلى السلة</button>
       </div>
 
       <div class="product">
@@ -42,17 +43,71 @@
       <div class="product">
         <img src="carrot.jpg" alt="جزر" />
         <h3>جزر</h3>
-        <p>السعر: 3 دراهم / كغ</p>
-        <button class="button" onclick="addToCart('جزر', 3)">أضف إلى السلة</button>
+        <p>السعر: 4 دراهم / كغ</p>
+        <button class="button" onclick="addToCart('جزر', 4)">أضف إلى السلة</button>
       </div>
 
       <div class="product">
         <img src="mint.jpg" alt="نعناع" />
         <h3>نعناع</h3>
-        <p>السعر: 1 درهم / ربطة</p>
-        <button class="button" onclick="addToCart('نعناع', 1)">أضف إلى السلة</button>
+        <p>السعر: 2 درهم / ربطة</p>
+        <button class="button" onclick="addToCart('نعناع', 2)">أضف إلى السلة</button>
       </div>
+<div class="product">
+  <img src="banana.jpg" alt="موز">
+  <h3>موز</h3>
+  <p>السعر: 12 دراهم / كغ</p>
+  <button class="button" onclick="addToCart('موز', 12)">أضف إلى السلة</button>
+</div>
 
+<div class="product">
+  <img src="orange.jpg" alt="برتقال">
+  <h3>برتقال</h3>
+  <p>السعر: 8 دراهم / كغ</p>
+  <button class="button" onclick="addToCart('برتقال', 8)">أضف إلى السلة</button>
+</div>
+
+<div class="product">
+  <img src="grapes.jpg" alt="عنب">
+  <h3>عنب</h3>
+  <p>السعر: 15 دراهم / كغ</p>
+  <button class="button" onclick="addToCart('عنب', 15)">أضف إلى السلة</button>
+</div>
+
+<div class="product">
+  <img src="cucumber.jpg" alt="خيار">
+  <h3>خيار</h3>
+  <p>السعر: 5 دراهم / كغ</p>
+  <button class="button" onclick="addToCart('خيار', 5)">أضف إلى السلة</button>
+</div>
+
+<div class="product">
+  <img src="watermelon.jpg" alt="بطيخ">
+  <h3>بطيخ</h3>
+  <p>السعر: 6 دراهم / كغ</p>
+  <button class="button" onclick="addToCart('بطيخ', 6)">أضف إلى السلة</button>
+</div>
+
+<div class="product">
+  <img src="lemon.jpg" alt="ليمون">
+  <h3>ليمون</h3>
+  <p>السعر: 8 دراهم / كغ</p>
+  <button class="button" onclick="addToCart('ليمون', 8)">أضف إلى السلة</button>
+</div>
+
+<div class="product">
+  <img src="pepper.jpg" alt="فلفل">
+  <h3>فلفل</h3>
+  <p>السعر: 9 دراهم / كغ</p>
+  <button class="button" onclick="addToCart('فلفل', 9)">أضف إلى السلة</button>
+</div>
+
+<div class="product">
+  <img src="onion.jpg" alt="بصل">
+  <h3>بصل</h3>
+  <p>السعر: 6 دراهم / كغ</p>
+  <button class="button" onclick="addToCart('بصل', 6)">أضف إلى السلة</button>
+</div>
     </div>
 
     <section class="cart-section">
@@ -72,7 +127,31 @@
       <a href="contact.html">اتصل بنا</a>
     </nav>
   </footer>
+<a href="checkout.html" class="button">الانتقال إلى إتمام الشراء</a>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  <script src="script.js"></script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCwnbxso8erHL2v4TrcjN2l0XTY7jFK3xE",
+    authDomain: "mon-magasin-4c845.firebaseapp.com",
+    projectId: "mon-magasin-4c845",
+    storageBucket: "mon-magasin-4c845.firebasestorage.app",
+    messagingSenderId: "63756402426",
+    appId: "1:63756402426:web:ce4058d1f9e316781cd343",
+    measurementId: "G-333NLC44H3"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // اجعل الكائن db متاحًا لباقي السكربت
+  window.db = db;
+  window.addDoc = addDoc;
+  window.collection = collection;
+</script>
+
+ <script src="script.js"></script>
+
 </body>
 </html>
