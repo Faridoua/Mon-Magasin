@@ -98,3 +98,19 @@ window.onload = () => {
   renderCart();
   filterProducts();
 };
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector('.products-container');
+  if (!container) return;
+
+  const products = Array.from(container.children);
+
+  // نرتب: الخضر (vegetable) أولاً، ثم الفواكه (fruit)
+  products.sort((a, b) => {
+    const aIsFruit = a.classList.contains('fruit');
+    const bIsFruit = b.classList.contains('fruit');
+    return aIsFruit - bIsFruit; // false (0) يسبق true (1)
+  });
+
+  // نعيد ترتيب العناصر في الـ DOM
+  products.forEach(product => container.appendChild(product));
+});
