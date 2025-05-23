@@ -226,14 +226,12 @@ button[type="submit"]:hover {
 /* Responsive */
 @media (max-width: 600px) {
   .products-container {
-    flex-direction: column;
-    align-items: center;
-    }
-  .products-container {
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
     padding: 0 10px;
+    /* flex-direction: column;  هذا غير ضروري مع grid */
+    align-items: center;
   }
 
   .product {
@@ -273,18 +271,21 @@ button[type="submit"]:hover {
     font-size: 16px;
     border-radius: 8px;
   }
-}
-  }
+
   .search-container {
     width: 100%;
     justify-content: center;
   }
+
   input, select {
     font-size: 14px;
   }
+
   button[type="submit"] {
     font-size: 16px;
   }
+}
+
 .confirmation-container {
   background: #e0f7fa;
   max-width: 400px;
@@ -323,6 +324,11 @@ button[type="submit"]:hover {
   min-width: 160px;
 }
 
+.btn-confirmation:hover {
+  background: linear-gradient(to right, #2ecc71, #27ae60);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
 .btn-confirmation:hover {
   background: linear-gradient(to right, #2ecc71, #27ae60);
   transform: scale(1.05);
