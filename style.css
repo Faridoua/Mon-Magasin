@@ -229,11 +229,6 @@ button[type="submit"]:hover {
     flex-direction: column;
     align-items: center;
     }
-  header {
-    flex-direction: column;
-    @media (max-width: 600px) {
-  /* الكود الموجود سابقًا */
-
   .products-container {
     display: grid;
     grid-template-columns: 1fr;
